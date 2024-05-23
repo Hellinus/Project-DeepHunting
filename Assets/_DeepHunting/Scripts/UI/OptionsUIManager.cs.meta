@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+guid: 093de0ad72ae8e4459d108df8c1801e9
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - SceneController: {instanceID: 0}
+  - OptionsPanel: {instanceID: 0}
+  - VolumePanel: {instanceID: 0}
+  - LanguagePanel: {instanceID: 0}
+  - MasterVolumeDecreaseBtn: {instanceID: 0}
+  - MasterVolumeIncreaseBtn: {instanceID: 0}
+  - MusicVolumeDecreaseBtn: {instanceID: 0}
+  - MusicVolumeIncreaseBtn: {instanceID: 0}
+  - SFXVolumeDecreaseBtn: {instanceID: 0}
+  - SFXVolumeIncreaseBtn: {instanceID: 0}
+  - LanguageSwitchLeftBtn: {instanceID: 0}
+  - LanguageSwitchRightBtn: {instanceID: 0}
+  - BackBtn: {instanceID: 0}
+  - BackgroundBtn: {instanceID: 0}
+  - MasterVolumeText: {instanceID: 0}
+  - MusicVolumeText: {instanceID: 0}
+  - SFXVolumeText: {instanceID: 0}
+  - MasterVolumeIcon: {instanceID: 0}
+  - MusicVolumeIcon: {instanceID: 0}
+  - SFXVolumeIcon: {instanceID: 0}
+  - LanguageIcon: {instanceID: 0}
+  - BackIcon: {instanceID: 0}
+  - LanguageList: {fileID: 11400000, guid: fe40a802dfab47d4d88a048fd350b1f2, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

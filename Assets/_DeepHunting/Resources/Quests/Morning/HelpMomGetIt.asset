@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4b3ce3fc52a40746b8a057145461699, type: 3}
+  m_Name: HelpMomGetIt
+  m_EditorClassIdentifier: 
+  <id>k__BackingField: HelpMomGetIt
+  displayName: Get Id card from your parents' room.
+  levelRequirement: 0
+  questPrerequisites: []
+  questStepPrefabs:
+  - {fileID: 8408752145967375868, guid: aae4f67ab81572e4b80a2166a164e5a9, type: 3}
