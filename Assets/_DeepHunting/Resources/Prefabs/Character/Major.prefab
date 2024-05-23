@@ -286,12 +286,12 @@ MonoBehaviour:
   AbilityMovementSpeedMultiplier: 1
   PushSpeedMultiplier: 1
   StateSpeedMultiplier: 1
-  FlipCharacterToFaceDirection: 0
+  FlipCharacterToFaceDirection: 1
   ReadInput: 1
   InstantAcceleration: 1
   InputThreshold: 0.1
   AirControl: 0.75
-  AllowFlipInTheAir: 0
+  AllowFlipInTheAir: 1
   ActiveAfterDeath: 0
   TouchTheGroundFeedback: {fileID: 0}
   MinimumAirTimeBeforeFeedback: 0.2
@@ -440,6 +440,7 @@ MonoBehaviour:
   StopRunAtLowSpeed: 1
   RunLowSpeedThreshold: 1
   ReadInput: 1
+  CanRunBackward: 1
   AutoRun: 0
   AutoRunThreshold: 0.6
 --- !u!114 &11463706
