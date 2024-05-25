@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 11431242}
   - component: {fileID: 11473620}
   - component: {fileID: 11463706}
-  - component: {fileID: 11453748}
   - component: {fileID: 11431628}
   - component: {fileID: 11444118}
   - component: {fileID: 11455680}
@@ -120,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultParameters:
-    Gravity: -30
+    Gravity: -25
     FallMultiplier: 1
     AscentMultiplier: 1
     MaxVelocity: {x: 100, y: 100}
@@ -276,6 +275,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   WalkSpeed: 2
   ResetHorizontalSpeedBtn: 0
   MovementSpeedMultiplier: 1
@@ -310,6 +310,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   CrawlAuthorized: 1
   CrawlSpeed: 2
   InputDriven: 1
@@ -336,29 +337,30 @@ MonoBehaviour:
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   BlockingMovementStates: 
-  BlockingConditionStates: 
+  BlockingConditionStates: 06000000
   BlockingWeaponStates: 
-  DashDistance: 4
-  DashForce: 15
-  ResetForcesOnExit: 1
+  BlockingExhaustedStates: 
+  DashDistance: 2
+  DashForce: 7.5
+  ResetForcesOnExit: 0
   ForceExactDistance: 0
   DetachFromMovingPlatformsOnDash: 0
   Aim:
-    AimControl: 2
-    RotationMode: 2
+    AimControl: 1
+    RotationMode: 0
     MinimumAngle: -180
     MaximumAngle: 180
     CurrentAngle: 0
   MinimumInputThreshold: 0.1
-  FlipCharacterIfNeeded: 1
+  FlipCharacterIfNeeded: 0
   AutoCorrectTrajectory: 1
   DashDirectionMinThreshold: 0.1
-  DashCooldown: 0.4
-  LimitedDashes: 1
+  DashCooldown: 0.5
+  LimitedDashes: 0
   SuccessiveDashAmount: 2
   SuccessiveDashesLeft: 1
   SuccessiveDashResetMethod: 1
-  SuccessiveDashResetDuration: 2
+  SuccessiveDashResetDuration: 1
   InvincibleWhileDashing: 1
 --- !u!114 &11421110
 MonoBehaviour:
@@ -378,6 +380,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   DanglingRaycastOrigin: {x: 0.7, y: 0.2, z: 0}
   DanglingRaycastLength: 2
 --- !u!114 &11431242
@@ -398,16 +401,17 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 01000000
   NumberOfJumps: 1
   JumpHeight: 1.5
   JumpRestrictions: 2
   ResetCameraOffsetOnJump: 0
   CanJumpDownOneWayPlatforms: 1
-  FixedAerialJumpCount: 0
+  FixedAerialJumpCount: 1
   JumpIsProportionalToThePressTime: 1
   JumpMinimumAirTime: 0.05
   JumpReleaseForceFactor: 2
-  CoyoteTime: 0.1
+  CoyoteTime: 0.2
   InputBufferDuration: 0
   OneWayPlatformsJumpCollisionOffDuration: 0.2
   MovingPlatformsJumpCollisionOffDuration: 0.05
@@ -432,6 +436,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 01000000
   RunSpeed: 5
   StopRunAtLowSpeed: 1
   RunLowSpeedThreshold: 1
@@ -457,6 +462,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   MovingPlatformsJumpCollisionOffDuration: 0.05
   ParticleEmitter: {fileID: 0}
   JetpackForce: 2.5
@@ -467,27 +473,6 @@ MonoBehaviour:
   MinimumFuelRequirement: 0.2
   JetpackRefueledSfx: {fileID: 0}
   JetpackFuelDurationLeft: 0
---- !u!114 &11453748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 119040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a40489dc31af43749444be35e176198, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  HorizontalInputThreshold: 0.5
-  MoveCameraTarget: 1
-  CameraTargetOffset: {x: 0, y: 1.5, z: 0}
 --- !u!114 &11431628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -506,6 +491,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   BufferDurationAfterGrip: 0.3
   InputBasedGrip: 0
 --- !u!114 &11444118
@@ -526,7 +512,8 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
-  LadderClimbingSpeed: 2
+  BlockingExhaustedStates: 
+  LadderClimbingSpeed: 1
   ForceRightFacing: 0
   ForceAnchorToGroundOnExit: 0
   MinimumTimeAfterLadderJump: 0.5
@@ -550,6 +537,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   MuteSfxTrackSounds: 1
   MuteUITrackSounds: 0
   MuteMusicTrackSounds: 0
@@ -578,6 +566,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   PreventJumpWhenInZone: 1
   ActivationCooldownDuration: 0
 --- !u!114 &114000010795265024
@@ -598,6 +587,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
   WeaponAttachment: {fileID: 0}
@@ -633,6 +623,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   ButtonBased: 0
   CanPush: 1
   CanPull: 1
@@ -700,6 +691,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   SubjectToGravityPoints: 1
   SubjectToGravityZones: 1
   ReverseHorizontalInputWhenUpsideDown: 1
@@ -729,6 +721,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   InWater: 0
   SwimHeight: 1.5
   SwimAnimationDuration: 2
@@ -754,6 +747,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   RaycastDirection: {x: 1, y: 0, z: 0}
   RaycastDistance: 0.8
   DetectionLayerMask:
@@ -785,6 +779,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   MinimumDamageFallHeight: 1
   MaximumDamageFallHeight: 2
   MinimumDamage: 1
@@ -810,8 +805,9 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   VerticalForce: -1
-  GlideOnlyIfNoJumpsLeft: 1
+  GlideOnlyIfNoJumpsLeft: 0
 --- !u!114 &4575129878694788813
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -830,6 +826,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   PlayerID: Player1
   MainInventoryName: MainInventory
   WeaponInventoryName: WeaponInventory
@@ -859,6 +856,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   Reticle: {fileID: 6429381783430279940, guid: 41f881476e14387448c94e8b54569651, type: 3}
   FaceReticleDirection: 1
   DisplayReticle: 1
@@ -892,17 +890,17 @@ MonoBehaviour:
   TemporarilyNeedNoStamina: 0
   InitialStamina: 30
   MaximumStamina: 30
-  NeedNoStamina: 1
+  NeedNoStamina: 0
   JumpCost: 4
   ShouldRecoverWaitAfterJump: 1
-  DashCost: 0
-  ShouldRecoverWaitAfterDash: 0
+  DashCost: 10
+  ShouldRecoverWaitAfterDash: 1
   RollCost: 6
   ShouldRecoverWaitAfterRoll: 1
   RunConstantlyCost: 3
   ShouldRecoverWaitAfterRun: 1
-  ClimbConstanlyCost: 3
-  ShouldRecoverWaitAfterClimb: 1
+  ClimbConstanlyCost: 0
+  ShouldRecoverWaitAfterClimb: 0
   RecoverSpeed: 5
   RecoverWaitTime: 2
   MinExhaustLimit: 10
@@ -951,7 +949,7 @@ GameObject:
   - component: {fileID: 2200932318772097342}
   - component: {fileID: 3912548166318360187}
   m_Layer: 0
-  m_Name: Detective_0idle
+  m_Name: Detective_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1013,12 +1011,12 @@ SpriteRenderer:
   m_SortingLayerID: -1628607475
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1368879284, guid: 2873986a692fe6c41b4093066c3fc094, type: 3}
+  m_Sprite: {fileID: 1479532882, guid: ad556a7c03a76f14f9dc35e48eaca29b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.5, y: 2}
+  m_Size: {x: 1.5, y: 3}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1

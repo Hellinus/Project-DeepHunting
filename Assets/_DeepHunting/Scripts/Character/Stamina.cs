@@ -29,7 +29,7 @@ public struct StaminaChangeEvent
 public class Stamina : MMMonoBehaviour
 {
     [MMInspectorGroup("Status", true, 1)]
-		
+
     /// the current stamina of the character
     [MMReadOnly] [Tooltip("the current stamina of the character")]
     public float CurrentStamina;
@@ -85,20 +85,20 @@ public class Stamina : MMMonoBehaviour
 
     public float MinExhaustLimit = 10f;
     
-    
-    
     protected Character _character;
     protected CorgiController _controller;
     protected GameObject _thisObject;
     protected CharacterPersistence _characterPersistence = null;
     protected MMStateMachine<CharacterStates.MovementStates> _movement;
     protected MMStateMachine<CharacterStates.CharacterConditions> _condition;
+    protected MMStateMachine<CharacterStates.ExhaustedState> _exhausted;
 
     protected bool _isDashed = false;
     protected bool _isJumped = false;
     protected bool _isRolled = false;
     protected bool _shouldWait = false;
     protected float _shouldWaitCurretTime = 0f;
+    
     
     protected virtual void Start()
     {
@@ -122,6 +122,7 @@ public class Stamina : MMMonoBehaviour
 	    _controller = _thisObject.GetComponent<CorgiController>();
 	    _movement = _character.MovementState;
 	    _condition = _character.ConditionState;
+	    _exhausted = _character.ExhaustedState;
     }
     
     protected virtual void Update()
@@ -197,7 +198,8 @@ public class Stamina : MMMonoBehaviour
 			    _shouldWait = true;
 			    _shouldWaitCurretTime = 0f;
 		    }
-		    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted)
+
+		    if (_exhausted.CurrentState == CharacterStates.ExhaustedState.Exhausted)
 		    {
 			    _movement.ChangeState(CharacterStates.MovementStates.Idle);
 			    _character.GetComponent<CharacterHorizontalMovement>().ResetHorizontalSpeed();
@@ -212,7 +214,8 @@ public class Stamina : MMMonoBehaviour
 			    _shouldWait = true;
 			    _shouldWaitCurretTime = 0f;
 		    }
-		    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted)
+
+		    if (_exhausted.CurrentState == CharacterStates.ExhaustedState.Exhausted && ClimbConstanlyCost > 0)
 		    {
 			    _character.GetComponent<CharacterLadder>().GetOffTheLadder();
 		    }
@@ -221,16 +224,21 @@ public class Stamina : MMMonoBehaviour
     
     protected virtual void HandleExhaust()
     {
-	    if (CurrentStamina <= 0 
-	        && (_condition.CurrentState is CharacterStates.CharacterConditions.Normal or CharacterStates.CharacterConditions.ControlledMovement ))
+	    if (CurrentStamina <= 0)
 	    {
-		    _condition.ChangeState(CharacterStates.CharacterConditions.Exhausted);
-		    // GUIManager.Instance.ExhaustedFeedbacks.PlayFeedbacks();
+		    if (_exhausted.CurrentState == CharacterStates.ExhaustedState.NotExhausted)
+		    {
+			    _exhausted.ChangeState(CharacterStates.ExhaustedState.Exhausted);
+		    }
 	    }
-	    if (_condition.CurrentState == CharacterStates.CharacterConditions.Exhausted && CurrentStamina >= MinExhaustLimit)
+
+	    if (CurrentStamina >= MinExhaustLimit)
 	    {
-		    _condition.ChangeState(CharacterStates.CharacterConditions.Normal);
-		    GUIManager.Instance.RecoverFromExhaustedFeedbacks.PlayFeedbacks();
+		    if (_exhausted.CurrentState == CharacterStates.ExhaustedState.Exhausted)
+		    {
+			    _exhausted.ChangeState(CharacterStates.ExhaustedState.NotExhausted);
+			    GUIManager.Instance.RecoverFromExhaustedFeedbacks.PlayFeedbacks();
+		    }
 	    }
     }
     

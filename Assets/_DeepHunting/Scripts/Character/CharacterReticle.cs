@@ -83,8 +83,7 @@ public class CharacterReticle : CharacterAbility
     [MMReadOnly]public ReticleBase _prePressedReticleBase = null;
     [MMReadOnly]public ReticleButtonState _preReticleButtonState = ReticleButtonState.Off;
     [MMReadOnly]public ReticleBase _preCommentReticleBase = null;
-
-
+    
     protected override void Initialization()
     {
         base.Initialization();
