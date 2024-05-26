@@ -25,7 +25,7 @@ public enum ReticleButtonState
     Off
 }
 
-public class CharacterReticle : CharacterAbility
+public class CharacterReticle : CharacterAbility, MMEventListener<CorgiEngineEvent>
 {
     [Header("Reticle")]
     
@@ -45,15 +45,6 @@ public class CharacterReticle : CharacterAbility
     [MMCondition("DisplayReticle")]
     public float ReticleZPosition;
     public float ReticlePositionLerpSpeed = 0.5f;
-    /// if set to true, the reticle will be placed at the mouse's position (like a pointer)
-    [Tooltip("if set to true, the reticle will be placed at the mouse's position (like a pointer)")]
-    [MMCondition("DisplayReticle")]
-    public bool ReticleAtMousePosition;
-    /// if set to true, the reticle will replace the mouse pointer
-    [Tooltip("if set to true, the reticle will replace the mouse pointer")]
-    [MMCondition("DisplayReticle")]
-    public bool ReplaceMousePointer = true;
-
     /// whether or not the reticle should be hidden when the character is dead
     [Tooltip("whether or not the reticle should be hidden when the character is dead")] [MMCondition("DisplayReticle")]
     public bool DisableReticleOnDeath = true;
@@ -64,9 +55,7 @@ public class CharacterReticle : CharacterAbility
     [Range(1, 10)] public int MouseMoveSpeed = 5;
     
     
-    protected Vector3 _currentAim = Vector3.zero;
     protected Vector3 _mousePosition;
-    protected Vector3 _direction;
     protected Camera _mainCamera;
     protected Vector3 _reticlePosition;
     protected GameObject _reticle;
@@ -74,6 +63,8 @@ public class CharacterReticle : CharacterAbility
     protected bool _charHztlMvmtFlipInitialSetting;
     protected PlayerReticleObject _playerReticleObject;
     protected bool _isDraging = false;
+    protected bool _isHiding = false;
+    protected bool _shouldHide = false;
     
     [Header("Debug")]
     
@@ -87,22 +78,22 @@ public class CharacterReticle : CharacterAbility
     protected override void Initialization()
     {
         base.Initialization();
-
-        Cursor.lockState = CursorLockMode.Locked;
         
         _mainCamera = Camera.main;
         
         if (Reticle == null) { return; }
         if (!DisplayReticle) { return; }
 
-        _reticle = (GameObject)Instantiate(Reticle);
+        _reticle = Instantiate(Reticle);
+        _isHiding = false;
+        
         _playerReticleObject = _reticle.MMGetComponentNoAlloc<PlayerReticleObject>();
         _playerReticleObject.Reticle = this;
         
-        if (LevelManager.Instance.Players[0] != null)
-        {
-            _reticle.transform.SetParent(LevelManager.Instance.Players[0].transform);
-        }
+        // if (LevelManager.Instance.Players[0] != null)
+        // {
+        //     _reticle.transform.SetParent(LevelManager.Instance.Players[0].transform);
+        // }
 
         _reticle.transform.localPosition = ReticleDistance * Vector3.right;
         
@@ -141,23 +132,20 @@ public class CharacterReticle : CharacterAbility
         GetCurrentAim ();
         MoveReticle();
         HideReticle ();
-        HandleFacingDirection();
-        
-        HandleDrag();
-        HandleComment();
-        HandleDisplayName();
+
+        if (!_isHiding)
+        {
+            HandleFacingDirection();
+            HandleDrag();
+            HandleComment();
+            HandleDisplayName();
+        }
     }
 
     protected virtual void GetCurrentAim()
     {
         if (InputIconsManagerSO.CurrentInputDeviceIsKeyboard())
         {
-// #if !ENABLE_INPUT_SYSTEM || ENABLE_LEGACY_INPUT_MANAGER
-//             _mousePosition = Input.mousePosition;
-// #else
-//         _mousePosition = Mouse.current.position.ReadValue();
-// #endif
-        
             _mousePosition.x += _inputManager.ReticleMovement.x * (Screen.width / 2000f) * MouseMoveSpeed;
             _mousePosition.x = Mathf.Clamp(_mousePosition.x, 0f, Screen.width);
         
@@ -165,18 +153,6 @@ public class CharacterReticle : CharacterAbility
             _mousePosition.y = Mathf.Clamp(_mousePosition.y, 0f, Screen.height);
             
             _mousePosition.z = _mainCamera.transform.position.z * -1;
-
-            _direction = _mainCamera.ScreenToWorldPoint (_mousePosition);
-            _direction.z = transform.position.z;
-
-            if (LevelManager.Instance.Players[0].IsFacingRight)
-            {
-                _currentAim = _direction - transform.position;
-            }
-            else
-            {
-                _currentAim = transform.position - _direction;
-            }
         }
         else
         {
@@ -187,20 +163,6 @@ public class CharacterReticle : CharacterAbility
             _mousePosition.y = Mathf.Clamp(_mousePosition.y, 0f, Screen.height);
         
             _mousePosition.z = _mainCamera.transform.position.z * -1;
-
-            _direction = _mainCamera.ScreenToWorldPoint (_mousePosition);
-            // Debug.Log(_mousePosition);
-        
-            _direction.z = transform.position.z;
-
-            if (LevelManager.Instance.Players[0].IsFacingRight)
-            {
-                _currentAim = _direction - transform.position;
-            }
-            else
-            {
-                _currentAim = transform.position - _direction;
-            }
         }
     }
     
@@ -208,14 +170,11 @@ public class CharacterReticle : CharacterAbility
     {
         if (_reticle == null) { return; }
 
-        // if we're in follow mouse mode and the current control scheme is mouse, we move the reticle to the mouse's position
-        if (ReticleAtMousePosition)
-        {
-            _reticlePosition = _mainCamera.ScreenToWorldPoint (_mousePosition);
-            _reticlePosition.z = ReticleZPosition;
+        _reticlePosition = _mainCamera.ScreenToWorldPoint (_mousePosition);
+        _reticlePosition.z = ReticleZPosition;
 
-            _reticle.transform.position = Vector3.Lerp(_reticle.transform.position, _reticlePosition, ReticlePositionLerpSpeed);
-        }
+        _reticle.transform.position = Vector3.Lerp(_reticle.transform.position, _reticlePosition, ReticlePositionLerpSpeed);
+
     }
     
     protected virtual void HideReticle()
@@ -227,27 +186,17 @@ public class CharacterReticle : CharacterAbility
                 if (LevelManager.Instance.Players[0].ConditionState.CurrentState == CharacterStates.CharacterConditions.Dead)
                 {
                     _reticle.gameObject.SetActive(false);
-                }
-                else
-                {
-                    _reticle.gameObject.SetActive(true);
+                    _isHiding = true;
                 }
             }
         }
+    }
 
-        if (GameManager.Instance.Paused)
-        {
-            _reticle.gameObject.SetActive(false);
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-            return;
-        }
-        else
-        {
-            _reticle.gameObject.SetActive(true);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
+    public void SetReticleHideState(bool b)
+    {
+        Debug.Log(b);
+        _reticle.gameObject.SetActive(b);
+        _isHiding = !b;
     }
     
     /// <summary>
@@ -255,30 +204,47 @@ public class CharacterReticle : CharacterAbility
     /// </summary>
     protected virtual void HandleFacingDirection()
     {
-        if ((_characterHorizontalMovement != null) && FaceReticleDirection)
+        if (!FaceReticleDirection
+            || _condition.CurrentState == CharacterStates.CharacterConditions.ControlledMovement
+            || _condition.CurrentState == CharacterStates.CharacterConditions.Frozen
+            || _condition.CurrentState == CharacterStates.CharacterConditions.Dead)
+        {
+            return;
+        }
+        
+        if (_characterHorizontalMovement != null)
         {
             _characterHorizontalMovement.FlipCharacterToFaceDirection = false;
             _charHztlMvmtFlipInitialSettingSet = true;
         }
 
-        if (_charHztlMvmtFlipInitialSettingSet)
+        if (_reticle.transform.position.x > _character.transform.position.x)
         {
-            _characterHorizontalMovement.FlipCharacterToFaceDirection = _charHztlMvmtFlipInitialSetting;
+            if (!_character.IsFacingRight)
+            {
+                _character.Face(Character.FacingDirections.Right);
+            }
         }
+        else if (_reticle.transform.position.x < _character.transform.position.x)
+        {
+            if (_character.IsFacingRight)
+            {
+                _character.Face(Character.FacingDirections.Left);
+            }
+        }
+    }
 
-        // if we're not in FaceWeaponDirection mode, if we don't have a HztalMvmt ability, or a weapon aim, we do nothing and exit
-        if (!FaceReticleDirection || (_characterHorizontalMovement == null))
+    public void SetReticleUseableState(bool b)
+    {
+        SetReticleHideState(b);
+        _shouldHide = !b;
+        if (b == false)
         {
-            return;
-        }
-
-        if (_character.IsFacingRight && _reticle.transform.position.x < _character.transform.position.x)
-        {
-            _character.Flip();
-        }
-        else if (!_character.IsFacingRight && _reticle.transform.position.x > _character.transform.position.x)
-        {
-            _character.Flip();
+            if (_characterHorizontalMovement != null)
+            {
+                _characterHorizontalMovement.FlipCharacterToFaceDirection = true;
+                _charHztlMvmtFlipInitialSettingSet = false;
+            }
         }
     }
 
@@ -356,18 +322,6 @@ public class CharacterReticle : CharacterAbility
     {
         r.OnReticleLeave();
         LayerIndexListRemove(r);
-        // if (!_isDraging)
-        // {
-        //     if (_layerList.Count != 0
-        //         && _layerList[0] != _prePressedReticleBase)
-        //     {
-        //         _prePressedReticleBase = null;
-        //     }
-        //     else
-        //     {
-        //         _prePressedReticleBase = null;
-        //     }
-        // }
     }
 
     protected void HandleDrag()
@@ -620,5 +574,36 @@ public class CharacterReticle : CharacterAbility
     protected void LayerIndexListClear(ReticleBase r)
     {
         _layerList.Clear();
+    }
+
+    public void OnMMEvent(CorgiEngineEvent eventType)
+    {
+        switch (eventType.EventType)
+        {
+            case CorgiEngineEventTypes.Pause:
+                _reticle.gameObject.SetActive(false);
+                _isHiding = true;
+                break;
+            case CorgiEngineEventTypes.UnPause:
+                if (!_shouldHide)
+                {
+                    _reticle.gameObject.SetActive(true);
+                    _isHiding = false;
+                }
+                break;
+            case CorgiEngineEventTypes.PauseNoMenu:
+                _reticle.gameObject.SetActive(false);
+                _isHiding = true;
+                break;
+        }
+    }
+    
+    void OnEnable()
+    {
+        this.MMEventStartListening<CorgiEngineEvent>();
+    }
+    void OnDisable()
+    {
+        this.MMEventStopListening<CorgiEngineEvent>();
     }
 }

@@ -50,10 +50,24 @@ public class ActionsManager : MMSingleton<ActionsManager>, MMEventListener<Actio
     public bool Lock = false;
     
     [SerializeField] protected List<TriggerInfo> ActionsList;
+
+    [SerializeField] protected List<TriggerInfo> StaticActionsList;
     
     private void Start()
     {
         foreach (var triggerInfo in ActionsList)
+        {
+            if (triggerInfo.SetActivateAtStart)
+            {
+                triggerInfo.ActionTrigger.gameObject.SetActive(true);
+            }
+            else
+            {
+                triggerInfo.ActionTrigger.gameObject.SetActive(false);
+            }
+        }
+        
+        foreach (var triggerInfo in StaticActionsList)
         {
             if (triggerInfo.SetActivateAtStart)
             {
@@ -71,6 +85,18 @@ public class ActionsManager : MMSingleton<ActionsManager>, MMEventListener<Actio
         string name = eventType.ActionName;
 
         foreach (var triggerInfo in ActionsList)
+        {
+            if (triggerInfo.Name.Equals(name))
+            {
+                ActionTriggered(triggerInfo);
+                if (triggerInfo.DisabledAfterTriggerd)
+                {
+                    triggerInfo.ActionTrigger.gameObject.SetActive(false);
+                }
+            }
+        }
+        
+        foreach (var triggerInfo in StaticActionsList)
         {
             if (triggerInfo.Name.Equals(name))
             {
@@ -131,6 +157,11 @@ public class ActionsManager : MMSingleton<ActionsManager>, MMEventListener<Actio
     private void OnValidate()
     {
         foreach (var triggerInitialization in ActionsList)
+        {
+            triggerInitialization.Name = triggerInitialization.ActionTrigger.gameObject.name;
+        }
+        
+        foreach (var triggerInitialization in StaticActionsList)
         {
             triggerInitialization.Name = triggerInitialization.ActionTrigger.gameObject.name;
         }

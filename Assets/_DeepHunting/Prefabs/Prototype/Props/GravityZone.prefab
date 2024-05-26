@@ -125,12 +125,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ControllerParameters:
-    Gravity: -30
+    Gravity: -25
     FallMultiplier: 1
     AscentMultiplier: 1
     MaxVelocity: {x: 100, y: 100}
-    SpeedAccelerationOnGround: 20
-    UseSeparateDecelerationOnGround: 0
+    SpeedAccelerationOnGround: 10
+    UseSeparateDecelerationOnGround: 1
     SpeedDecelerationOnGround: 20
     SpeedAccelerationInAir: 5
     UseSeparateDecelerationInAir: 0

@@ -58,8 +58,11 @@ public class CharacterMovementControlManager : MonoBehaviour
         v.x += x;
         LevelManager.Instance.Players[0].gameObject.transform.position = v;
     }
-    
-    
+
+    public virtual void SetCharacterReticleUseableState(bool b)
+    {
+        LevelManager.Instance.Players[0].gameObject.MMGetComponentNoAlloc<CharacterReticle>().SetReticleUseableState(b);
+    }
     
     public virtual void StopControl()
     {
