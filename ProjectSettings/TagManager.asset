@@ -38,7 +38,7 @@ TagManager:
   - MidHeightOneWayPlatforms
   - Pushables
   - Stairs
-  - 
+  - NonPlayerFluTarget
   - 
   - 
   m_SortingLayers:

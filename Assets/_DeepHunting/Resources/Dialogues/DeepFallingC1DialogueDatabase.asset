@@ -6202,7 +6202,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: UTSM, ESUDNRDNTA.
+        value: UNDERSTAND, MUST.
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -6461,7 +6461,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: EOFSLWR, TASP, LMAET, MSUIC
+        value: FLOWER, PAST, METAL, MUSIC.
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -6653,8 +6653,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 0, y: 96.5909}
+    canvasZoom: 0.8800001
   - id: 50
     fields:
     - title: Title

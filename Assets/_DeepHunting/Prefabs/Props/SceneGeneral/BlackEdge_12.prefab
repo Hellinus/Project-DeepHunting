@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayGizmo: 1
   GizmoType: 1
-  DisplayMode: 0
+  DisplayMode: 1
   GizmoColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
   PositionMode: 0
   PositionTexture: {fileID: 0}
