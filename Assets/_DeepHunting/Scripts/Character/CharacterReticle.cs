@@ -84,25 +84,16 @@ public class CharacterReticle : CharacterAbility, MMEventListener<CorgiEngineEve
         if (Reticle == null) { return; }
         if (!DisplayReticle) { return; }
 
-        _reticle = Instantiate(Reticle);
-        _isHiding = false;
-        
-        _playerReticleObject = _reticle.MMGetComponentNoAlloc<PlayerReticleObject>();
-        _playerReticleObject.Reticle = this;
-        
-        // if (LevelManager.Instance.Players[0] != null)
-        // {
-        //     _reticle.transform.SetParent(LevelManager.Instance.Players[0].transform);
-        // }
+        InitiateReticle();
 
-        _reticle.transform.localPosition = ReticleDistance * Vector3.right;
+
+        
+        _layerList = new List<ReticleBase>();
         
         if (_characterHorizontalMovement != null)
         {
             _charHztlMvmtFlipInitialSetting = _characterHorizontalMovement.FlipCharacterToFaceDirection;
         }
-
-        _layerList = new List<ReticleBase>();
     }
 
     protected override void HandleInput()
@@ -139,6 +130,7 @@ public class CharacterReticle : CharacterAbility, MMEventListener<CorgiEngineEve
             HandleDrag();
             HandleComment();
             HandleDisplayName();
+            HandleClickActionTrigger();
         }
     }
 
@@ -194,7 +186,7 @@ public class CharacterReticle : CharacterAbility, MMEventListener<CorgiEngineEve
 
     public void SetReticleHideState(bool b)
     {
-        Debug.Log(b);
+        // Debug.Log(b);
         _reticle.gameObject.SetActive(b);
         _isHiding = !b;
     }
@@ -330,6 +322,12 @@ public class CharacterReticle : CharacterAbility, MMEventListener<CorgiEngineEve
         {
             if (_preReticleButtonState == ReticleButtonState.Pressed)
             {
+                if (_reticleButtonState == ReticleButtonState.Off)
+                {
+                    _prePressedReticleBase = null;
+                    _isDraging = false;
+                    return;
+                }
                 _prePressedReticleBase.OnReticleButtonPress(_reticle.transform.position);
                 _isDraging = true;
             }
@@ -338,6 +336,27 @@ public class CharacterReticle : CharacterAbility, MMEventListener<CorgiEngineEve
                 _isDraging = false;
             }
         }
+        else
+        {
+            _isDraging = false;
+        }
+    }
+
+    protected void HandleClickActionTrigger()
+    {
+        if (_prePressedReticleBase && _prePressedReticleBase.ReticlePressEventType == PressEventType.ClickTriggerAction)
+        {
+            if (_preReticleButtonState == ReticleButtonState.Pressed)
+            {
+                if (_reticleButtonState == ReticleButtonState.Off)
+                {
+                    _prePressedReticleBase = null;
+                    return;
+                }
+                _prePressedReticleBase.OnReticleButtonPress(_reticle.transform.position);
+            }
+        }
+
     }
 
     protected void HandleComment()
@@ -597,13 +616,42 @@ public class CharacterReticle : CharacterAbility, MMEventListener<CorgiEngineEve
                 break;
         }
     }
-    
-    void OnEnable()
+
+    protected virtual void InitiateReticle()
     {
+        _reticle = Instantiate(Reticle);
+        _isHiding = false;
+        
+        _playerReticleObject = _reticle.MMGetComponentNoAlloc<PlayerReticleObject>();
+        _playerReticleObject.Reticle = this;
+        _reticle.transform.localPosition = ReticleDistance * Vector3.right;
+    }
+
+    protected virtual void DeathDestroyReticle()
+    {
+        Destroy(_reticle);
+    }
+
+    protected override void OnRespawn()
+    {
+        base.OnRespawn();
+        InitiateReticle();
+    }
+
+    protected override void OnDeath()
+    {
+        base.OnDeath();
+        DeathDestroyReticle();
+    }
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
         this.MMEventStartListening<CorgiEngineEvent>();
     }
-    void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         this.MMEventStopListening<CorgiEngineEvent>();
     }
 }

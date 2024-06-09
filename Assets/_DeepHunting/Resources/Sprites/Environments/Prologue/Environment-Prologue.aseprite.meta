@@ -148,7 +148,7 @@ ScriptedImporter:
       x: 4
       y: 36
       width: 224
-      height: 160
+      height: 144
     spriteID: b495ecb2fdb3d4243825a30babc803a8
     spriteBone: []
     spriteOutline: []
@@ -245,7 +245,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 5
       y: 232
       width: 127
       height: 12
@@ -265,7 +265,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 137
+      x: 138
       y: 212
       width: 2
       height: 32
@@ -285,7 +285,7 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 157
+      x: 158
       y: 202
       width: 2
       height: 42

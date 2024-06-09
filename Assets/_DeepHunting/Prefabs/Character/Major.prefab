@@ -130,7 +130,7 @@ MonoBehaviour:
     MaxVelocity: {x: 100, y: 100}
     SpeedAccelerationOnGround: 5
     UseSeparateDecelerationOnGround: 1
-    SpeedDecelerationOnGround: 10
+    SpeedDecelerationOnGround: 20
     SpeedAccelerationInAir: 5
     UseSeparateDecelerationInAir: 0
     SpeedDecelerationInAir: 5
@@ -280,6 +280,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   WalkSpeed: 1
   ResetHorizontalSpeedBtn: 0
   MovementSpeedMultiplier: 1
@@ -288,7 +289,7 @@ MonoBehaviour:
   StateSpeedMultiplier: 1
   FlipCharacterToFaceDirection: 1
   ReadInput: 1
-  InstantAcceleration: 1
+  InstantAcceleration: 0
   InputThreshold: 0.1
   AirControl: 0.75
   AllowFlipInTheAir: 1
@@ -314,6 +315,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   CrawlAuthorized: 1
   CrawlSpeed: 2
   InputDriven: 1
@@ -342,6 +344,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   DashDistance: 4
   DashForce: 15
   ResetForcesOnExit: 1
@@ -382,6 +385,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   DanglingRaycastOrigin: {x: 0.7, y: 0.2, z: 0}
   DanglingRaycastLength: 2
 --- !u!114 &11431242
@@ -402,6 +406,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   NumberOfJumps: 1
   JumpHeight: 2
   JumpRestrictions: 2
@@ -436,13 +441,14 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   RunSpeed: 3
-  StopRunAtLowSpeed: 1
+  StopRunAtLowSpeed: 0
   RunLowSpeedThreshold: 1
-  ReadInput: 1
-  CanRunBackward: 1
-  AutoRun: 0
-  AutoRunThreshold: 0.6
+  ReadInput: 0
+  CanRunBackward: 0
+  AutoRun: 1
+  AutoRunThreshold: 0.8
 --- !u!114 &11463706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,6 +467,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   MovingPlatformsJumpCollisionOffDuration: 0.05
   ParticleEmitter: {fileID: 0}
   JetpackForce: 2.5
@@ -489,6 +496,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   HorizontalInputThreshold: 0.5
   MoveCameraTarget: 1
   CameraTargetOffset: {x: 0, y: 1.5, z: 0}
@@ -510,6 +518,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   BufferDurationAfterGrip: 0.3
   InputBasedGrip: 0
 --- !u!114 &11475426
@@ -530,6 +539,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   WallClingingSlowFactor: 0.2
   RaycastVerticalOffset: 0
   WallClingingTolerance: 0.3
@@ -553,6 +563,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   WallJumpForce: {x: 15, y: 4}
   ForceMode: 0
   ForceFlipTowardsDirection: 1
@@ -580,6 +591,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   LadderClimbingSpeed: 2
   ForceRightFacing: 0
   ForceAnchorToGroundOnExit: 0
@@ -604,6 +616,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   MuteSfxTrackSounds: 1
   MuteUITrackSounds: 0
   MuteMusicTrackSounds: 0
@@ -632,6 +645,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   PreventJumpWhenInZone: 1
   ActivationCooldownDuration: 0
 --- !u!114 &114000010795265024
@@ -652,6 +666,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
   WeaponAttachment: {fileID: 0}
@@ -687,6 +702,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   ButtonBased: 0
   CanPush: 1
   CanPull: 1
@@ -754,6 +770,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   SubjectToGravityPoints: 1
   SubjectToGravityZones: 1
   ReverseHorizontalInputWhenUpsideDown: 1
@@ -783,6 +800,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   InWater: 0
   SwimHeight: 1.5
   SwimAnimationDuration: 2
@@ -808,6 +826,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   OnStairs: 0
   StairsBelow: 0
   StairsAhead: 0
@@ -839,6 +858,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   RaycastDirection: {x: 1, y: 0, z: 0}
   RaycastDistance: 0.8
   DetectionLayerMask:
@@ -870,6 +890,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   MinimumDamageFallHeight: 1
   MaximumDamageFallHeight: 2
   MinimumDamage: 1
@@ -895,6 +916,7 @@ MonoBehaviour:
   BlockingMovementStates: 04000000
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   RollDuration: 0.3
   RollSpeed: 2.5
   BlockHorizontalInput: 1
@@ -930,6 +952,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   VerticalForce: -1
   GlideOnlyIfNoJumpsLeft: 1
 --- !u!114 &4575129878694788813
@@ -950,6 +973,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   PlayerID: Player1
   MainInventoryName: MainInventory
   WeaponInventoryName: WeaponInventory
@@ -979,14 +1003,13 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
+  BlockingExhaustedStates: 
   Reticle: {fileID: 6429381783430279940, guid: 41f881476e14387448c94e8b54569651, type: 3}
   FaceReticleDirection: 1
   DisplayReticle: 1
   ReticleDistance: 0
   ReticleZPosition: 0
   ReticlePositionLerpSpeed: 0.5
-  ReticleAtMousePosition: 1
-  ReplaceMousePointer: 1
   DisableReticleOnDeath: 1
   InteractDistance: 2
   GamepadMoveSpeed: 5

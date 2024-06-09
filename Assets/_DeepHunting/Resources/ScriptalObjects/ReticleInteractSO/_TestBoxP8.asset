@@ -18,5 +18,11 @@ MonoBehaviour:
   - TestBoxP8
   - "\u6D4B\u8BD5\u76D2P8"
   - "\u6E2C\u8A66\u76D2P8"
-  FarRangeComment: []
-  CloseRangeComment: []
+  FarRangeComment:
+  - 
+  - 
+  - 
+  CloseRangeComment:
+  - 
+  - 
+  - 
