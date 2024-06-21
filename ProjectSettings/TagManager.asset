@@ -39,7 +39,7 @@ TagManager:
   - Pushables
   - Stairs
   - NonPlayerFluTarget
-  - 
+  - Unwalkable
   - 
   m_SortingLayers:
   - name: Background

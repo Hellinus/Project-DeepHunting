@@ -6516,7 +6516,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: WEIRD... (Clears throat), Uh, NOW, JUMP, PLACE?
+        value: Werid... (clears throat), uh, NOW, JUMP, PLACE?
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
@@ -6653,8 +6653,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 96.5909}
-    canvasZoom: 0.8800001
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.73000026
   - id: 50
     fields:
     - title: Title

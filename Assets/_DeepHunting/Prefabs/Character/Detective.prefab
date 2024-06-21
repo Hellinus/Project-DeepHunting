@@ -27444,7 +27444,6 @@ GameObject:
   - component: {fileID: 9076508318720301358}
   - component: {fileID: 8414961833923914777}
   - component: {fileID: 5862222597928174984}
-  - component: {fileID: 8958748275891426400}
   - component: {fileID: 8041191415150243330}
   m_Layer: 9
   m_Name: FluContainer
@@ -27556,7 +27555,8 @@ MonoBehaviour:
   gravity: {x: 0, y: 0, z: 0}
   externalForce: {x: 0, y: 0, z: 0}
   lightSource: {fileID: 0}
-  targets: []
+  targets:
+  - {fileID: 6422416752547200433}
   pressure: 1
   viscosity: 0
   turbulence: 100
@@ -27565,23 +27565,6 @@ MonoBehaviour:
   buoyancy: 50
   dissipation: {x: 0, y: 0, z: 0, w: 0}
   m_Solver: {fileID: 1283901321322534104}
---- !u!114 &8958748275891426400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9094157814762364993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c5d97255d28043adbbe58e604a75808, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: {x: 20, y: 10, z: 0.5}
-  maxColliders: 32
-  layers:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!210 &8041191415150243330
 SortingGroup:
   m_ObjectHideFlags: 0
